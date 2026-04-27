@@ -49,7 +49,7 @@ const ValueSection = () => {
           <div className="relative bg-card rounded-2xl border border-border/50 overflow-hidden shadow-sm">
             {/* Veeto column highlight + pulsing glow */}
             <div
-              className="absolute top-0 right-0 bottom-0 w-1/4 pointer-events-none animate-veeto-pulse"
+              className="absolute top-0 right-0 bottom-0 w-1/5 pointer-events-none animate-veeto-pulse"
               style={{ background: "var(--veeto-gradient-hero)", opacity: 0.1 }}
               aria-hidden="true"
             />
