@@ -2,51 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Caveat:wght@500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 99%;
-    --foreground: 240 10% 8%;
+    /* Warm cream base */
+    --background: 36 38% 96%;          /* #FAF6F0 */
+    --foreground: 0 0% 10%;            /* #1A1A1A */
 
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 8%;
+    --card-foreground: 0 0% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 8%;
+    --popover-foreground: 0 0% 10%;
 
-    --primary: 252 80% 60%;
-    --primary-foreground: 0 0% 100%;
+    /* Electric indigo */
+    --primary: 243 75% 59%;            /* #4F46E5 */
+    --primary-foreground: 36 38% 96%;
 
-    --secondary: 240 5% 96%;
-    --secondary-foreground: 240 10% 20%;
+    --secondary: 36 30% 92%;
+    --secondary-foreground: 0 0% 18%;
 
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
+    --muted: 36 25% 92%;
+    --muted-foreground: 0 0% 42%;      /* #6B6B6B */
 
-    --accent: 252 80% 96%;
-    --accent-foreground: 252 80% 40%;
+    --accent: 243 75% 95%;
+    --accent-foreground: 243 75% 40%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: 252 80% 60%;
+    --border: 36 18% 86%;
+    --input: 36 18% 86%;
+    --ring: 243 75% 59%;
 
-    --radius: 0.75rem;
+    --radius: 0.875rem;
 
-    /* Veeto brand */
+    /* Veeto brand (kept for gradient on logo/buttons/hero) */
     --veeto-purple: 252 80% 60%;
     --veeto-blue: 220 90% 56%;
     --veeto-pink: 330 80% 65%;
     --veeto-violet: 280 70% 60%;
-    --veeto-soft-bg: 240 20% 97%;
+    --veeto-soft-bg: 36 38% 94%;       /* warm beige */
+
+    /* New personality palette */
+    --veeto-cream: 36 38% 96%;         /* #FAF6F0 */
+    --veeto-beige: 36 45% 92%;         /* #F5EDE0 */
+    --veeto-indigo: 243 75% 59%;       /* #4F46E5 */
+    --veeto-coral: 0 100% 71%;         /* #FF6B6B */
+    --veeto-yellow: 50 100% 62%;       /* #FFD93D */
+    --veeto-mint: 142 41% 71%;         /* #95D5B2 */
+    --veeto-mint-soft: 138 32% 93%;    /* #E8F3EC */
+    --veeto-sticky-yellow: 49 100% 70%;/* #FFE066 */
+    --veeto-sticky-mint: 153 51% 81%;  /* #B8E6D2 */
+    --veeto-sticky-coral: 9 100% 83%;  /* #FFB5A7 */
+
     --veeto-gradient-1: linear-gradient(135deg, hsl(252 80% 60%), hsl(220 90% 56%));
     --veeto-gradient-2: linear-gradient(135deg, hsl(330 80% 65%), hsl(280 70% 60%));
     --veeto-gradient-hero: linear-gradient(135deg, hsl(252 80% 60%), hsl(220 90% 56%), hsl(330 80% 65%));
     --veeto-glow: 0 8px 40px -8px hsl(252 80% 60% / 0.3);
     --veeto-glow-pink: 0 8px 40px -8px hsl(330 80% 65% / 0.25);
+    --veeto-glow-coral: 0 10px 36px -10px hsl(0 100% 71% / 0.5);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -64,8 +80,15 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground antialiased;
     font-family: 'Inter', system-ui, sans-serif;
+    font-size: 16.5px;
+    line-height: 1.65;
+  }
+  h1, h2, h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-feature-settings: 'ss01';
+    letter-spacing: -0.015em;
   }
 }
 
@@ -86,7 +109,7 @@
     box-shadow: var(--veeto-glow);
   }
   .veeto-section {
-    @apply px-4 sm:px-6 lg:px-8 py-20 md:py-28 max-w-6xl mx-auto;
+    @apply px-4 sm:px-6 lg:px-8 py-16 md:py-20 max-w-6xl mx-auto;
   }
   .veeto-btn-primary {
     @apply inline-flex items-center justify-center rounded-full font-semibold text-primary-foreground px-8 py-3.5 text-base shadow-lg transition-all duration-300;
@@ -94,8 +117,8 @@
     box-shadow: var(--veeto-glow);
   }
   .veeto-btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 12px 48px -8px hsl(252 80% 60% / 0.4);
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 12px 48px -8px hsl(252 80% 60% / 0.5);
   }
   .veeto-btn-secondary {
     @apply inline-flex items-center justify-center rounded-full font-medium px-8 py-3.5 text-base border border-border bg-background text-foreground transition-all duration-300;
@@ -103,66 +126,99 @@
   .veeto-btn-secondary:hover {
     @apply border-primary/30 bg-accent;
   }
+  .font-handwritten {
+    font-family: 'Caveat', cursive;
+    letter-spacing: 0;
+  }
+  .font-display {
+    font-family: 'Fraunces', Georgia, serif;
+  }
+
+  /* Sticky note */
+  .sticky-note {
+    @apply inline-block px-4 py-2 rounded-sm shadow-md;
+    font-family: 'Caveat', cursive;
+    transition: transform 0.3s ease;
+  }
+  .sticky-note:hover {
+    transform: rotate(-1deg) scale(1.04);
+  }
+
+  /* Section bands */
+  .band-cream { background-color: hsl(var(--veeto-cream)); }
+  .band-beige { background-color: hsl(var(--veeto-beige)); position: relative; }
+  .band-mint  { background-color: hsl(var(--veeto-mint-soft)); }
+  .band-indigo {
+    background: linear-gradient(160deg, hsl(243 75% 59%), hsl(252 70% 52%) 60%, hsl(265 70% 48%));
+    color: hsl(var(--veeto-cream));
+  }
+  .band-indigo h2, .band-indigo h3, .band-indigo p { color: hsl(var(--veeto-cream)); }
 }
 
 @layer utilities {
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
+  /* Grain overlay */
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
-  .animate-float-delayed {
-    animation: float 6s ease-in-out 2s infinite;
+  .page-grain::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.7 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
-  .animate-fade-up {
-    animation: fadeUp 0.8s ease-out forwards;
-    opacity: 0;
-  }
-  .animate-fade-up-delay-1 {
-    animation: fadeUp 0.8s ease-out 0.15s forwards;
-    opacity: 0;
-  }
-  .animate-fade-up-delay-2 {
-    animation: fadeUp 0.8s ease-out 0.3s forwards;
-    opacity: 0;
-  }
-  .animate-fade-up-delay-3 {
-    animation: fadeUp 0.8s ease-out 0.45s forwards;
-    opacity: 0;
-  }
-  .animate-pulse-glow {
-    animation: pulseGlow 4s ease-in-out infinite;
-  }
-  .animate-gradient-shift {
-    animation: gradientShift 8s ease infinite;
-    background-size: 200% 200%;
-  }
+
+  .animate-float { animation: float 6s ease-in-out infinite; }
+  .animate-float-delayed { animation: float 6s ease-in-out 2s infinite; }
+  .animate-fade-up { animation: fadeUp 0.8s ease-out forwards; opacity: 0; }
+  .animate-fade-up-delay-1 { animation: fadeUp 0.8s ease-out 0.15s forwards; opacity: 0; }
+  .animate-fade-up-delay-2 { animation: fadeUp 0.8s ease-out 0.3s forwards; opacity: 0; }
+  .animate-fade-up-delay-3 { animation: fadeUp 0.8s ease-out 0.45s forwards; opacity: 0; }
+  .animate-pulse-glow { animation: pulseGlow 4s ease-in-out infinite; }
+  .animate-gradient-shift { animation: gradientShift 8s ease infinite; background-size: 200% 200%; }
+  .animate-wobble { animation: wobble 0.6s ease-in-out; }
+  .hover-wobble:hover { animation: wobble 0.6s ease-in-out; }
+  .animate-veeto-pulse { animation: veetoPulse 3s ease-in-out infinite; }
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-12px); }
 }
-
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes pulseGlow {
   0%, 100% { opacity: 0.4; transform: scale(1); }
   50% { opacity: 0.7; transform: scale(1.05); }
 }
-
 @keyframes gradientShift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-
 @keyframes ambientShift {
   0%, 100% { transform: rotate(0deg) scale(1); filter: hue-rotate(0deg); }
   50% { transform: rotate(180deg) scale(1.1); filter: hue-rotate(40deg); }
 }
+.animate-ambient-shift { animation: ambientShift 8s ease-in-out infinite; }
 
-.animate-ambient-shift {
-  animation: ambientShift 8s ease-in-out infinite;
+@keyframes wobble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-2.5deg); }
+  50% { transform: rotate(2deg); }
+  75% { transform: rotate(-1deg); }
+}
+@keyframes veetoPulse {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(252 80% 60% / 0.18); }
+  50%      { box-shadow: 0 0 0 14px hsl(252 80% 60% / 0); }
 }
