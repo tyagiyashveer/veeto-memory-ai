@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Loader2, CheckCircle2, FileText, Clock, CalendarCheck } from "lucide-react";
+import { Loader2, CheckCircle2 } from "lucide-react";
 import { submitWaitlist } from "@/lib/waitlist";
+import PhoneMockup from "./PhoneMockup";
 
 const HeroSection = () => {
   const [email, setEmail] = useState("");
@@ -104,55 +105,7 @@ const HeroSection = () => {
 
           {/* Right: Phone mockup */}
           <div className="relative order-2 flex justify-center lg:justify-end animate-fade-up-delay-2">
-            <div className="relative w-full max-w-[320px]">
-              <div className="absolute -inset-10 veeto-gradient-bg blur-3xl opacity-20 rounded-full" aria-hidden="true" />
-              {/* Phone frame */}
-              <div className="relative bg-foreground rounded-[2.5rem] p-2 shadow-2xl animate-float" style={{ boxShadow: "var(--veeto-glow)" }}>
-                <div className="bg-background rounded-[2rem] overflow-hidden aspect-[9/19]">
-                  {/* Notch */}
-                  <div className="relative h-7 flex items-center justify-center">
-                    <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-foreground rounded-full" />
-                  </div>
-                  {/* Screen content */}
-                  <div className="px-5 pt-4 pb-6 space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">AI Memory</span>
-                      <span className="w-2 h-2 rounded-full veeto-gradient-bg animate-pulse" />
-                    </div>
-
-                    {/* Profile card */}
-                    <div className="rounded-2xl p-4 veeto-gradient-bg text-primary-foreground">
-                      <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-base font-bold mb-2">S</div>
-                      <p className="text-base font-bold">Sarah Chen</p>
-                      <p className="text-xs opacity-80">Partner, Sequoia Capital</p>
-                    </div>
-
-                    {/* Fields */}
-                    <div className="space-y-2.5">
-                      {[
-                        { icon: Clock, label: "Met at", value: "TechCrunch Disrupt — 3 weeks ago" },
-                        { icon: FileText, label: "Context", value: "Bullish on AI memory tools. Asked to see early traction." },
-                        { icon: CalendarCheck, label: "Action", value: "Send Series A deck — Friday" },
-                      ].map((f, i) => (
-                        <div key={i} className="flex items-start gap-2.5 py-1.5">
-                          <f.icon className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
-                          <div className="min-w-0 flex-1">
-                            <p className="text-[9px] font-medium text-muted-foreground uppercase tracking-wider">{f.label}</p>
-                            <p className="text-[11px] font-semibold text-foreground leading-snug">{f.value}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Status */}
-                    <div className="flex items-center gap-2 pt-1 border-t border-border/50">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                      <span className="text-[10px] font-medium text-muted-foreground">Reminder set</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <PhoneMockup />
           </div>
         </div>
       </div>
