@@ -134,7 +134,7 @@ const AskVeetoSection = () => {
     }
   }, [phase, typed]);
 
-  const showAnswer = phase === "holding";
+  const showAnswer = phase === "answering" || phase === "erasing";
   const current = conversation[index];
 
   return (
