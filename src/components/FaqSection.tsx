@@ -7,6 +7,10 @@ import {
 
 const faqs = [
   {
+    q: "Do I need to download a new app?",
+    a: "Nope. Veeto runs inside WhatsApp and Telegram — apps you already use every day. Just message the bot. That's it.",
+  },
+  {
     q: "When does Veeto launch?",
     a: "We're rolling out access in waves over the coming months. Waitlist members get in first.",
   },
@@ -34,7 +38,7 @@ const faqs = [
 
 const FaqSection = () => {
   return (
-    <section className="relative">
+    <section className="relative band-cream">
       <div className="veeto-section">
         <div className="text-center mb-12 space-y-4">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">

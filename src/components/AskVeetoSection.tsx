@@ -138,7 +138,7 @@ const AskVeetoSection = () => {
   const current = conversation[index];
 
   return (
-    <section className="relative">
+    <section className="relative band-mint">
       <div className="veeto-section">
         {/* Heading */}
         <div className="text-center mb-12 space-y-4 max-w-3xl mx-auto">

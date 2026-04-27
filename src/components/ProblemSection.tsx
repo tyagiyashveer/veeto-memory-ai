@@ -20,7 +20,7 @@ const problems = [
 
 const ProblemSection = () => {
   return (
-    <section className="relative bg-veeto-soft-bg">
+    <section className="relative band-cream">
       <div className="veeto-section">
         <div className="max-w-3xl mx-auto text-center space-y-12">
           <div className="space-y-4">

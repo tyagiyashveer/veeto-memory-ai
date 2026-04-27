@@ -41,7 +41,7 @@ const cards = [
 
 const ExamplesSection = () => {
   return (
-    <section className="relative">
+    <section className="relative band-cream">
       <div className="veeto-section">
         <div className="text-center mb-14 space-y-4 max-w-2xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">

@@ -23,7 +23,7 @@ const renderCell = (v: Cell) => {
 
 const ValueSection = () => {
   return (
-    <section className="relative bg-veeto-soft-bg">
+    <section className="relative band-beige">
       <div className="veeto-section">
         <div className="text-center mb-12 space-y-4 max-w-3xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
