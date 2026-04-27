@@ -3,23 +3,23 @@ import { TrendingUp, Rocket, Users, Heart } from "lucide-react";
 const cases = [
   {
     icon: TrendingUp,
-    title: "Sales & Business",
-    description: "Never miss what a prospect said",
+    title: "For professionals",
+    description: "Remember every prospect, client, and colleague. Never lose a deal to a forgotten follow-up again.",
   },
   {
     icon: Rocket,
-    title: "Founders",
-    description: "Manage investors, hires, and partnerships",
+    title: "For founders & operators",
+    description: "Track investors, hires, partners, and customers — with the context behind every conversation.",
   },
   {
     icon: Users,
-    title: "Networking",
-    description: "Turn introductions into relationships",
+    title: "For networkers",
+    description: "Turn every event, intro, and coffee chat into a relationship you can actually maintain.",
   },
   {
     icon: Heart,
-    title: "Everyday Life",
-    description: "Remember people and moments that matter",
+    title: "For everyday life",
+    description: "Remember the people who matter — friends, family, neighbors, the dentist's kid's name. The small details that build real connection.",
   },
 ];
 
@@ -33,10 +33,10 @@ const UseCasesSection = () => {
           </h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {cases.map((c, i) => (
             <div key={i} className="veeto-card text-center space-y-4 group">
-              <div className="w-14 h-14 mx-auto rounded-2xl bg-accent flex items-center justify-center transition-all duration-300 group-hover:veeto-gradient-bg group-hover:shadow-lg" style={{ "--tw-shadow": "var(--veeto-glow)" } as React.CSSProperties}>
+              <div className="w-14 h-14 mx-auto rounded-2xl bg-accent flex items-center justify-center transition-all duration-300 group-hover:veeto-gradient-bg">
                 <c.icon className="w-6 h-6 text-accent-foreground transition-colors duration-300 group-hover:text-primary-foreground" />
               </div>
               <h3 className="text-base font-bold text-foreground">{c.title}</h3>

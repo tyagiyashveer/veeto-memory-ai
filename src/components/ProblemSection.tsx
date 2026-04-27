@@ -1,9 +1,21 @@
 import { UserX, MessageSquareOff, FileX } from "lucide-react";
 
 const problems = [
-  { icon: UserX, text: "You forget names, context, and follow-ups" },
-  { icon: MessageSquareOff, text: "Great conversations fade away" },
-  { icon: FileX, text: "Notes are scattered or never written" },
+  {
+    icon: UserX,
+    title: "Names disappear",
+    text: "You forget who you met within 48 hours of meeting them.",
+  },
+  {
+    icon: MessageSquareOff,
+    title: "Context evaporates",
+    text: "What they cared about, what you promised, what mattered — gone.",
+  },
+  {
+    icon: FileX,
+    title: "Follow-ups die",
+    text: "The relationships you needed most fade because you forgot to reach back.",
+  },
 ];
 
 const ProblemSection = () => {
@@ -13,8 +25,8 @@ const ProblemSection = () => {
         <div className="max-w-3xl mx-auto text-center space-y-12">
           <div className="space-y-4">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-              You meet hundreds of people.<br />
-              <span className="text-muted-foreground">You remember almost nothing.</span>
+              You meet thousands of people.<br />
+              <span className="text-muted-foreground">Your memory keeps almost none.</span>
             </h2>
           </div>
 
@@ -24,13 +36,14 @@ const ProblemSection = () => {
                 <div className="w-12 h-12 mx-auto rounded-xl bg-accent flex items-center justify-center">
                   <p.icon className="w-5 h-5 text-accent-foreground" />
                 </div>
+                <h3 className="text-base font-bold text-foreground">{p.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{p.text}</p>
               </div>
             ))}
           </div>
 
           <p className="text-lg font-medium veeto-gradient-text">
-            Every conversation matters. Most are lost.
+            Every person you've ever met could change your life. Most you'll never remember.
           </p>
         </div>
       </div>
