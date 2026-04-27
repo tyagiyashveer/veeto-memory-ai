@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Sparkles, MapPin, Handshake, Bell, BarChart3 } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 type Person = { icon: string; name: string; meta: string; note: string };
 type QA = { q: string; intro: string; people: Person[] };
@@ -267,29 +267,6 @@ const AskVeetoSection = () => {
           is built from your real conversations — not the internet.
         </p>
 
-        {/* Output feature cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto mt-16">
-          {features.map((f, i) => (
-            <div key={i} className="veeto-card space-y-4 group">
-              <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center transition-all duration-300 group-hover:veeto-gradient-bg">
-                <f.icon className="w-5 h-5 text-accent-foreground transition-colors duration-300 group-hover:text-primary-foreground" strokeWidth={2.2} />
-              </div>
-              <div className="space-y-1">
-                <p className="text-[10px] font-semibold uppercase tracking-wider veeto-gradient-text">
-                  {f.label}
-                </p>
-                <h3 className="text-sm font-bold text-foreground leading-snug">{f.title}</h3>
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">{f.description}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Supporting tagline */}
-        <p className="text-center mt-14 text-xl sm:text-2xl font-bold tracking-tight text-foreground max-w-2xl mx-auto">
-          Your network already has the answer.{" "}
-          <span className="veeto-gradient-text">Veeto helps you find it.</span>
-        </p>
       </div>
     </section>
   );

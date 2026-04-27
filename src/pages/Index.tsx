@@ -2,11 +2,9 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import MessagingSection from "@/components/MessagingSection";
 import ProblemSection from "@/components/ProblemSection";
-import SolutionSection from "@/components/SolutionSection";
 import DemoSection from "@/components/DemoSection";
 import AskVeetoSection from "@/components/AskVeetoSection";
 import UseCasesSection from "@/components/UseCasesSection";
-import ExamplesSection from "@/components/ExamplesSection";
 import ValueSection from "@/components/ValueSection";
 import WaitlistSection from "@/components/WaitlistSection";
 import FaqSection from "@/components/FaqSection";
@@ -19,11 +17,9 @@ const Index = () => {
       <HeroSection />
       <MessagingSection />
       <ProblemSection />
-      <SolutionSection />
       <DemoSection />
       <AskVeetoSection />
       <UseCasesSection />
-      <ExamplesSection />
       <ValueSection />
       <WaitlistSection />
       <FaqSection />
