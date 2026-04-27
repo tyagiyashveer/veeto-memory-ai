@@ -4,7 +4,17 @@ type Cell = "yes" | "no" | "manual" | "partial";
 
 const columns = ["Notes app", "CRM", "Your memory", "Veeto"] as const;
 
-const rows: { feature: string; values: [Cell, Cell, Cell, Cell] }[] = [
+const rows: { feature: string; values: [Cell, Cell, Cell, Cell]; veetoExtra?: React.ReactNode }[] = [
+  {
+    feature: "Works inside apps you already use",
+    values: ["no", "no", "partial", "yes"],
+    veetoExtra: (
+      <span className="inline-flex items-center gap-1 ml-1.5 align-middle">
+        <span className="w-4 h-4 rounded-sm bg-[#25D366] text-white text-[9px] font-bold inline-flex items-center justify-center">W</span>
+        <span className="w-4 h-4 rounded-sm bg-[#0088CC] text-white text-[9px] font-bold inline-flex items-center justify-center">T</span>
+      </span>
+    ),
+  },
   { feature: "Captures by voice", values: ["no", "no", "yes", "yes"] },
   { feature: "Auto-structures info", values: ["no", "manual", "no", "yes"] },
   { feature: "Searchable in seconds", values: ["partial", "yes", "no", "yes"] },
@@ -23,7 +33,7 @@ const renderCell = (v: Cell) => {
 
 const ValueSection = () => {
   return (
-    <section className="relative bg-veeto-soft-bg">
+    <section className="relative band-beige">
       <div className="veeto-section">
         <div className="text-center mb-12 space-y-4 max-w-3xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
@@ -37,10 +47,10 @@ const ValueSection = () => {
         {/* Desktop table */}
         <div className="hidden md:block max-w-5xl mx-auto">
           <div className="relative bg-card rounded-2xl border border-border/50 overflow-hidden shadow-sm">
-            {/* Veeto column highlight */}
+            {/* Veeto column highlight + pulsing glow */}
             <div
-              className="absolute top-0 right-0 bottom-0 w-1/5 pointer-events-none"
-              style={{ background: "var(--veeto-gradient-hero)", opacity: 0.08 }}
+              className="absolute top-0 right-0 bottom-0 w-1/4 pointer-events-none animate-veeto-pulse"
+              style={{ background: "var(--veeto-gradient-hero)", opacity: 0.1 }}
               aria-hidden="true"
             />
             <table className="w-full relative">
@@ -64,7 +74,10 @@ const ValueSection = () => {
                   <tr key={i} className="border-b border-border/50 last:border-0">
                     <td className="px-6 py-4 text-sm font-medium text-foreground text-left">{row.feature}</td>
                     {row.values.map((v, j) => (
-                      <td key={j} className="px-6 py-4 text-center">{renderCell(v)}</td>
+                      <td key={j} className="px-6 py-4 text-center">
+                        {renderCell(v)}
+                        {j === 3 && row.veetoExtra}
+                      </td>
                     ))}
                   </tr>
                 ))}

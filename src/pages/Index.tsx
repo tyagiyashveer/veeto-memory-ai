@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import MessagingSection from "@/components/MessagingSection";
 import ProblemSection from "@/components/ProblemSection";
 import SolutionSection from "@/components/SolutionSection";
 import DemoSection from "@/components/DemoSection";
@@ -13,9 +14,10 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen band-cream relative page-grain">
       <Navbar />
       <HeroSection />
+      <MessagingSection />
       <ProblemSection />
       <SolutionSection />
       <DemoSection />

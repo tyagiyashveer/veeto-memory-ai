@@ -2,7 +2,7 @@ import { Mic, ArrowRight, User, Building2, FileText, CalendarCheck, Briefcase } 
 
 const DemoSection = () => {
   return (
-    <section id="demo" className="relative bg-veeto-soft-bg scroll-mt-20">
+    <section id="demo" className="relative band-cream scroll-mt-20">
       <div className="veeto-section">
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">

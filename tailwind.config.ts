@@ -15,6 +15,8 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
+        display: ["Fraunces", "Georgia", "serif"],
+        handwritten: ["Caveat", "cursive"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -56,6 +58,16 @@ export default {
           pink: "hsl(var(--veeto-pink))",
           violet: "hsl(var(--veeto-violet))",
           "soft-bg": "hsl(var(--veeto-soft-bg))",
+          cream: "hsl(var(--veeto-cream))",
+          beige: "hsl(var(--veeto-beige))",
+          indigo: "hsl(var(--veeto-indigo))",
+          coral: "hsl(var(--veeto-coral))",
+          yellow: "hsl(var(--veeto-yellow))",
+          mint: "hsl(var(--veeto-mint))",
+          "mint-soft": "hsl(var(--veeto-mint-soft))",
+          "sticky-yellow": "hsl(var(--veeto-sticky-yellow))",
+          "sticky-mint": "hsl(var(--veeto-sticky-mint))",
+          "sticky-coral": "hsl(var(--veeto-sticky-coral))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

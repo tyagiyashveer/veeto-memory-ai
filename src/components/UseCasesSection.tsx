@@ -25,18 +25,21 @@ const cases = [
 
 const UseCasesSection = () => {
   return (
-    <section className="relative">
+    <section className="relative band-cream">
       <div className="veeto-section">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-            Built for how you actually <span className="veeto-gradient-text">live and work</span>
+        <div className="text-center mb-12 space-y-3">
+          <span className="font-handwritten text-2xl text-veeto-coral inline-block -rotate-2">
+            for everyone, really ↓
+          </span>
+          <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-foreground leading-[1.05]">
+            Built for how you actually <span className="veeto-gradient-text italic">live and work</span>
           </h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
           {cases.map((c, i) => (
-            <div key={i} className="veeto-card text-center space-y-4 group">
-              <div className="w-14 h-14 mx-auto rounded-2xl bg-accent flex items-center justify-center transition-all duration-300 group-hover:veeto-gradient-bg">
+            <div key={i} className="veeto-card text-center space-y-4 group transition-transform duration-300 hover:rotate-[-1deg]">
+              <div className="w-14 h-14 mx-auto rounded-2xl bg-accent flex items-center justify-center transition-all duration-300 group-hover:veeto-gradient-bg group-hover:scale-110">
                 <c.icon className="w-6 h-6 text-accent-foreground transition-colors duration-300 group-hover:text-primary-foreground" />
               </div>
               <h3 className="text-base font-bold text-foreground">{c.title}</h3>

@@ -13,13 +13,13 @@ const SocialProof = () => {
         {avatars.map((bg, i) => (
           <div
             key={i}
-            className="w-9 h-9 rounded-full border-2 border-background shadow-sm"
+            className="w-9 h-9 rounded-full border-2 border-white/80 shadow-sm"
             style={{ background: bg }}
             aria-hidden="true"
           />
         ))}
       </div>
-      <p className="text-sm font-medium text-muted-foreground">
+      <p className="text-sm font-medium text-current opacity-90">
         Join 1,000+ on the waitlist
       </p>
     </div>
