@@ -265,34 +265,90 @@ const PhoneMockup = () => {
               </div>
 
               {/* View all link */}
-              <div className="px-5 pt-3 pb-4">
+              <div className="px-5 pt-2 pb-2">
                 <p className="text-[11px] font-medium text-neutral-400">
                   View all 247 memories →
                 </p>
               </div>
 
-              {/* Voice waveform recorder bar */}
-              <div className="absolute bottom-3 inset-x-5 flex items-center justify-center gap-2 px-3 py-2 rounded-full bg-neutral-900/90 backdrop-blur">
-                <Mic className="w-3 h-3 text-white" strokeWidth={2.5} />
-                <div className="flex items-center gap-[2px] h-3">
-                  {Array.from({ length: 18 }).map((_, i) => (
-                    <motion.span
-                      key={i}
-                      className="w-[2px] rounded-full bg-white/80"
-                      animate={
-                        recording
-                          ? { height: [3, 10, 4, 12, 3] }
-                          : { height: [2, 4, 2] }
-                      }
-                      transition={{
-                        duration: recording ? 0.8 : 2,
-                        delay: i * 0.04,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                      style={{ height: 3 }}
-                    />
-                  ))}
+              {/* THIS WEEK mini list */}
+              <div className="px-5 pt-2 pb-2">
+                <span className="text-[10px] font-semibold text-neutral-400 uppercase tracking-[0.12em]">
+                  This Week
+                </span>
+                <div className="mt-2">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={`mini-${index}`}
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                      className="divide-y divide-neutral-200/60"
+                    >
+                      {miniRows.map((row, i) => (
+                        <div key={i} className="flex items-center gap-2.5 py-2">
+                          <div className="w-7 h-7 rounded-full veeto-gradient-bg flex items-center justify-center text-white text-[11px] font-bold shrink-0">
+                            {row.initial}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className="text-[11px] font-semibold text-neutral-900 leading-tight truncate">
+                              {row.name}
+                              <span className="text-neutral-400 font-medium"> · {row.role}</span>
+                            </p>
+                            <p className="text-[9.5px] text-neutral-400 leading-tight mt-0.5">
+                              {row.subtext}
+                            </p>
+                          </div>
+                          <span
+                            className={`inline-flex items-center px-1.5 py-0.5 rounded-full text-[8.5px] font-semibold whitespace-nowrap shrink-0 ${row.tag.className}`}
+                          >
+                            {row.tag.label}
+                          </span>
+                        </div>
+                      ))}
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </div>
+
+              {/* Quick capture bar (bottom of screen) */}
+              <div className="absolute bottom-3 inset-x-3">
+                <div
+                  className="flex items-center gap-2.5 px-3 py-2.5 rounded-full border border-white/60 backdrop-blur-sm"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, hsl(220 90% 97%), hsl(252 80% 97%) 50%, hsl(330 80% 98%))",
+                    boxShadow:
+                      "0 -4px 16px -4px hsl(252 30% 50% / 0.12), inset 0 1px 0 hsl(0 0% 100%)",
+                  }}
+                >
+                  <div className="w-7 h-7 rounded-full veeto-gradient-bg flex items-center justify-center shrink-0">
+                    <Mic className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
+                  </div>
+                  <span className="flex-1 text-[11px] font-medium text-neutral-500">
+                    Tap to capture a memory
+                  </span>
+                  <div className="flex items-center gap-[2px] h-3 pr-1">
+                    {Array.from({ length: 10 }).map((_, i) => (
+                      <motion.span
+                        key={i}
+                        className="w-[2px] rounded-full veeto-gradient-bg"
+                        animate={
+                          recording
+                            ? { height: [3, 10, 4, 11, 3] }
+                            : { height: [3, 6, 3] }
+                        }
+                        transition={{
+                          duration: recording ? 0.8 : 1.6,
+                          delay: i * 0.06,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                        style={{ height: 3 }}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
