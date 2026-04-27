@@ -40,9 +40,12 @@ const FaqSection = () => {
   return (
     <section className="relative band-cream">
       <div className="veeto-section">
-        <div className="text-center mb-12 space-y-4">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-            Questions, <span className="veeto-gradient-text">answered.</span>
+        <div className="text-center mb-10 space-y-3">
+          <span className="font-handwritten text-2xl text-veeto-coral inline-block -rotate-2">
+            ~ the small print ~
+          </span>
+          <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-foreground leading-[1.05]">
+            Questions, <span className="veeto-gradient-text italic">answered.</span>
           </h2>
         </div>
 

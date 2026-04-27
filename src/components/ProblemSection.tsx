@@ -22,17 +22,20 @@ const ProblemSection = () => {
   return (
     <section className="relative band-cream">
       <div className="veeto-section">
-        <div className="max-w-3xl mx-auto text-center space-y-12">
-          <div className="space-y-4">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+        <div className="max-w-3xl mx-auto text-center space-y-10">
+          <div className="space-y-3">
+            <span className="font-handwritten text-2xl text-veeto-coral inline-block -rotate-2">
+              the harsh truth ↓
+            </span>
+            <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-foreground leading-[1.05]">
               You meet thousands of people.<br />
-              <span className="text-muted-foreground">Your memory keeps almost none.</span>
+              <span className="italic text-muted-foreground">Your memory keeps almost none.</span>
             </h2>
           </div>
 
-          <div className="grid sm:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-3 gap-5">
             {problems.map((p, i) => (
-              <div key={i} className="veeto-card text-center space-y-4">
+              <div key={i} className="veeto-card text-center space-y-3">
                 <div className="w-12 h-12 mx-auto rounded-xl bg-accent flex items-center justify-center">
                   <p.icon className="w-5 h-5 text-accent-foreground" />
                 </div>
@@ -42,8 +45,9 @@ const ProblemSection = () => {
             ))}
           </div>
 
-          <p className="text-lg font-medium veeto-gradient-text">
-            Every person you've ever met could change your life. Most you'll never remember.
+          <p className="font-display text-xl sm:text-2xl font-semibold italic text-foreground">
+            Every person you've ever met could change your life.{" "}
+            <span className="veeto-gradient-text not-italic">Most you'll never remember.</span>
           </p>
         </div>
       </div>
