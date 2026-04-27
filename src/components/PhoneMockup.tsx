@@ -12,11 +12,12 @@ type Card = {
   tag: { label: string; className: string };
 };
 
-const cards: Card[] = [
+const cards: (Card & { shortRole: string })[] = [
   {
     initial: "S",
     name: "Sarah Chen",
     role: "Partner, Sequoia Capital",
+    shortRole: "Partner, Sequoia",
     metAt: "TechCrunch Disrupt — 3 weeks ago",
     context: "Bullish on AI memory. Wants to see traction before Series A.",
     action: "Send pitch deck — Friday",
@@ -26,6 +27,7 @@ const cards: Card[] = [
     initial: "M",
     name: "Marcus Webb",
     role: "Staff Engineer, ex-Stripe",
+    shortRole: "Staff Engineer",
     metAt: "AI conference afterparty — 1 week ago",
     context: "Open to early-stage roles. Wants equity-heavy package.",
     action: "Send role spec — Monday",
@@ -35,6 +37,7 @@ const cards: Card[] = [
     initial: "P",
     name: "Priya Sharma",
     role: "VP Product, Fortune 500",
+    shortRole: "VP Product",
     metAt: "LinkedIn intro from David — 5 days ago",
     context: "Their team has the exact pain we solve. Budget approved.",
     action: "Schedule demo — April 12",
@@ -44,6 +47,7 @@ const cards: Card[] = [
     initial: "J",
     name: "James Okonkwo",
     role: "Founder, exited 2x",
+    shortRole: "Founder & advisor",
     metAt: "Founder dinner in SF — 2 weeks ago",
     context: "Offered to advise. Wants quarterly check-ins.",
     action: "Send Q1 update — Friday",
@@ -53,11 +57,29 @@ const cards: Card[] = [
     initial: "A",
     name: "Anika Reddy",
     role: "Head of BD, Notion",
+    shortRole: "Head of BD, Notion",
     metAt: "SaaStr Annual — 4 weeks ago",
     context: "Interested in integration. Connecting us with their team.",
     action: "Intro email — Thursday",
     tag: { label: "🤝 Partnership", className: "bg-emerald-100 text-emerald-700" },
   },
+];
+
+// Rotation: 3 mini rows shown for each main-card index.
+// Index 0 (Sarah main) = initial state per spec: Marcus, Priya, James.
+// On each cycle, the previous main moves into row 1 as "Just added" and
+// the rest shift down by one.
+const MINI_ROTATIONS: { idx: number; subtext: string }[][] = [
+  // Main = Sarah (0)
+  [{ idx: 1, subtext: "Added yesterday" }, { idx: 2, subtext: "Added 3 days ago" }, { idx: 3, subtext: "Added 5 days ago" }],
+  // Main = Marcus (1) → Sarah just added, then Priya, James shift up
+  [{ idx: 0, subtext: "Just added" }, { idx: 2, subtext: "Added 3 days ago" }, { idx: 3, subtext: "Added 5 days ago" }],
+  // Main = Priya (2) → Marcus just added, Sarah ages
+  [{ idx: 1, subtext: "Just added" }, { idx: 0, subtext: "Added 2 days ago" }, { idx: 3, subtext: "Added 5 days ago" }],
+  // Main = James (3) → Priya just added
+  [{ idx: 2, subtext: "Just added" }, { idx: 1, subtext: "Added 2 days ago" }, { idx: 0, subtext: "Added 4 days ago" }],
+  // Main = Anika (4) → James just added
+  [{ idx: 3, subtext: "Just added" }, { idx: 2, subtext: "Added 2 days ago" }, { idx: 1, subtext: "Added 4 days ago" }],
 ];
 
 const PhoneMockup = () => {
@@ -100,6 +122,16 @@ const PhoneMockup = () => {
   }, []);
 
   const card = cards[index];
+  const miniRows = MINI_ROTATIONS[index].map((r) => {
+    const c = cards[r.idx];
+    return {
+      initial: c.initial,
+      name: c.name,
+      role: c.shortRole,
+      subtext: r.subtext,
+      tag: c.tag,
+    };
+  });
 
   return (
     <div className="relative w-full flex flex-col items-center">
@@ -265,34 +297,90 @@ const PhoneMockup = () => {
               </div>
 
               {/* View all link */}
-              <div className="px-5 pt-3 pb-4">
+              <div className="px-5 pt-2 pb-2">
                 <p className="text-[11px] font-medium text-neutral-400">
                   View all 247 memories →
                 </p>
               </div>
 
-              {/* Voice waveform recorder bar */}
-              <div className="absolute bottom-3 inset-x-5 flex items-center justify-center gap-2 px-3 py-2 rounded-full bg-neutral-900/90 backdrop-blur">
-                <Mic className="w-3 h-3 text-white" strokeWidth={2.5} />
-                <div className="flex items-center gap-[2px] h-3">
-                  {Array.from({ length: 18 }).map((_, i) => (
-                    <motion.span
-                      key={i}
-                      className="w-[2px] rounded-full bg-white/80"
-                      animate={
-                        recording
-                          ? { height: [3, 10, 4, 12, 3] }
-                          : { height: [2, 4, 2] }
-                      }
-                      transition={{
-                        duration: recording ? 0.8 : 2,
-                        delay: i * 0.04,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                      style={{ height: 3 }}
-                    />
-                  ))}
+              {/* THIS WEEK mini list */}
+              <div className="px-5 pt-2 pb-2">
+                <span className="text-[10px] font-semibold text-neutral-400 uppercase tracking-[0.12em]">
+                  This Week
+                </span>
+                <div className="mt-2">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={`mini-${index}`}
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                      className="divide-y divide-neutral-200/60"
+                    >
+                      {miniRows.map((row, i) => (
+                        <div key={i} className="flex items-center gap-2.5 py-2">
+                          <div className="w-7 h-7 rounded-full veeto-gradient-bg flex items-center justify-center text-white text-[11px] font-bold shrink-0">
+                            {row.initial}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className="text-[11px] font-semibold text-neutral-900 leading-tight truncate">
+                              {row.name}
+                              <span className="text-neutral-400 font-medium"> · {row.role}</span>
+                            </p>
+                            <p className="text-[9.5px] text-neutral-400 leading-tight mt-0.5">
+                              {row.subtext}
+                            </p>
+                          </div>
+                          <span
+                            className={`inline-flex items-center px-1.5 py-0.5 rounded-full text-[8.5px] font-semibold whitespace-nowrap shrink-0 ${row.tag.className}`}
+                          >
+                            {row.tag.label}
+                          </span>
+                        </div>
+                      ))}
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </div>
+
+              {/* Quick capture bar (bottom of screen) */}
+              <div className="absolute bottom-3 inset-x-3">
+                <div
+                  className="flex items-center gap-2.5 px-3 py-2.5 rounded-full border border-white/60 backdrop-blur-sm"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, hsl(220 90% 97%), hsl(252 80% 97%) 50%, hsl(330 80% 98%))",
+                    boxShadow:
+                      "0 -4px 16px -4px hsl(252 30% 50% / 0.12), inset 0 1px 0 hsl(0 0% 100%)",
+                  }}
+                >
+                  <div className="w-7 h-7 rounded-full veeto-gradient-bg flex items-center justify-center shrink-0">
+                    <Mic className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
+                  </div>
+                  <span className="flex-1 text-[11px] font-medium text-neutral-500">
+                    Tap to capture a memory
+                  </span>
+                  <div className="flex items-center gap-[2px] h-3 pr-1">
+                    {Array.from({ length: 10 }).map((_, i) => (
+                      <motion.span
+                        key={i}
+                        className="w-[2px] rounded-full veeto-gradient-bg"
+                        animate={
+                          recording
+                            ? { height: [3, 10, 4, 11, 3] }
+                            : { height: [3, 6, 3] }
+                        }
+                        transition={{
+                          duration: recording ? 0.8 : 1.6,
+                          delay: i * 0.06,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                        style={{ height: 3 }}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
