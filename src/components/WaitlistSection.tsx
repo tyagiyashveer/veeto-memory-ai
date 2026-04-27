@@ -32,10 +32,11 @@ const WaitlistSection = () => {
   };
 
   return (
-    <section id="waitlist" className="relative overflow-hidden">
+    <section id="waitlist" className="relative band-indigo overflow-hidden">
+      <div className="grain" />
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-veeto-purple/8 blur-[120px]" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-veeto-pink/6 blur-[100px]" />
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-veeto-coral/15 blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-veeto-yellow/10 blur-[100px]" />
       </div>
 
       <div className="veeto-section relative">
@@ -43,10 +44,13 @@ const WaitlistSection = () => {
 
         <div className="max-w-lg mx-auto text-center space-y-8">
           <div className="space-y-3">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-              Get early access <span className="veeto-gradient-text">before launch.</span>
+            <span className="font-handwritten text-2xl text-veeto-yellow inline-block -rotate-2">
+              ~ last call ~
+            </span>
+            <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight leading-[1.05]">
+              Get early access <span className="italic" style={{ background: "linear-gradient(90deg, hsl(var(--veeto-yellow)), hsl(var(--veeto-coral)))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>before launch.</span>
             </h2>
-            <p className="text-base text-muted-foreground">
+            <p className="text-base text-white/80">
               We're rolling out Veeto in waves. Join the waitlist to be first in line.
             </p>
           </div>
