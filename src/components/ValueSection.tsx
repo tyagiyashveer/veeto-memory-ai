@@ -47,10 +47,10 @@ const ValueSection = () => {
         {/* Desktop table */}
         <div className="hidden md:block max-w-5xl mx-auto">
           <div className="relative bg-card rounded-2xl border border-border/50 overflow-hidden shadow-sm">
-            {/* Veeto column highlight */}
+            {/* Veeto column highlight + pulsing glow */}
             <div
-              className="absolute top-0 right-0 bottom-0 w-1/5 pointer-events-none"
-              style={{ background: "var(--veeto-gradient-hero)", opacity: 0.08 }}
+              className="absolute top-0 right-0 bottom-0 w-1/4 pointer-events-none animate-veeto-pulse"
+              style={{ background: "var(--veeto-gradient-hero)", opacity: 0.1 }}
               aria-hidden="true"
             />
             <table className="w-full relative">
@@ -74,7 +74,10 @@ const ValueSection = () => {
                   <tr key={i} className="border-b border-border/50 last:border-0">
                     <td className="px-6 py-4 text-sm font-medium text-foreground text-left">{row.feature}</td>
                     {row.values.map((v, j) => (
-                      <td key={j} className="px-6 py-4 text-center">{renderCell(v)}</td>
+                      <td key={j} className="px-6 py-4 text-center">
+                        {renderCell(v)}
+                        {j === 3 && row.veetoExtra}
+                      </td>
                     ))}
                   </tr>
                 ))}
