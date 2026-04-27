@@ -14,7 +14,7 @@ const problems = [
   {
     icon: FileX,
     title: "Follow-ups die",
-    text: "The relationships you needed most fade because you forgot to reach back.",
+    text: "The investor who would have funded you. The hire who would have built it. The customer who would have closed. All forgotten.",
   },
 ];
 

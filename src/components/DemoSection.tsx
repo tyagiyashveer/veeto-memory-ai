@@ -1,4 +1,4 @@
-import { Mic, ArrowRight, User, Building2, FileText, CalendarCheck } from "lucide-react";
+import { Mic, ArrowRight, User, Building2, FileText, CalendarCheck, Briefcase } from "lucide-react";
 
 const DemoSection = () => {
   return (
@@ -31,7 +31,7 @@ const DemoSection = () => {
               ))}
             </div>
             <p className="text-sm text-foreground italic leading-relaxed">
-              "Met Ramesh from TCS, wants pricing next week"
+              "Met Sarah at Disrupt — Sequoia partner, wants to see traction before our Series A."
             </p>
           </div>
 
@@ -52,17 +52,23 @@ const DemoSection = () => {
               <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Structured Memory</span>
             </div>
             {[
-              { icon: User, label: "Name", value: "Ramesh" },
-              { icon: Building2, label: "Company", value: "TCS" },
-              { icon: FileText, label: "Summary", value: "Interested in pricing" },
-              { icon: CalendarCheck, label: "Action", value: "Follow up next week" },
+              { icon: User, label: "Name", value: "Sarah Chen" },
+              { icon: Building2, label: "Company", value: "Sequoia Capital" },
+              { icon: Briefcase, label: "Role", value: "Partner" },
+              { icon: FileText, label: "Summary", value: "Interested in leading our Series A" },
+              { icon: CalendarCheck, label: "Action", value: "Share traction deck by Friday" },
             ].map((item, i) => (
-              <div key={i} className="flex items-center gap-3 py-2 border-b border-border/50 last:border-0">
-                <item.icon className="w-4 h-4 text-primary shrink-0" />
-                <span className="text-xs font-medium text-muted-foreground w-16">{item.label}</span>
-                <span className="text-sm font-semibold text-foreground">{item.value}</span>
+              <div key={i} className="flex items-start gap-3 py-2 border-b border-border/50 last:border-0">
+                <item.icon className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                <span className="text-xs font-medium text-muted-foreground w-16 shrink-0 mt-0.5">{item.label}</span>
+                <span className="text-sm font-semibold text-foreground leading-snug">{item.value}</span>
               </div>
             ))}
+            <div className="pt-2">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-orange-100 text-orange-700">
+                🔥 High priority
+              </span>
+            </div>
           </div>
         </div>
 

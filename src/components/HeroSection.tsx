@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Loader2, CheckCircle2, User, Building2, FileText, Clock, CalendarCheck } from "lucide-react";
+import { Loader2, CheckCircle2, FileText, Clock, CalendarCheck } from "lucide-react";
 import { submitWaitlist } from "@/lib/waitlist";
 
 const HeroSection = () => {
@@ -122,28 +122,32 @@ const HeroSection = () => {
 
                     {/* Profile card */}
                     <div className="rounded-2xl p-4 veeto-gradient-bg text-primary-foreground">
-                      <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-base font-bold mb-2">R</div>
-                      <p className="text-base font-bold">Ramesh Kumar</p>
-                      <p className="text-xs opacity-80">TCS</p>
+                      <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-base font-bold mb-2">S</div>
+                      <p className="text-base font-bold">Sarah Chen</p>
+                      <p className="text-xs opacity-80">Partner, Sequoia Capital</p>
                     </div>
 
                     {/* Fields */}
                     <div className="space-y-2.5">
                       {[
-                        { icon: User, label: "Name", value: "Ramesh Kumar" },
-                        { icon: Building2, label: "Company", value: "TCS" },
-                        { icon: FileText, label: "Summary", value: "Interested in pricing" },
-                        { icon: Clock, label: "Last met", value: "2 weeks ago" },
-                        { icon: CalendarCheck, label: "Action", value: "Follow up next week" },
+                        { icon: Clock, label: "Met at", value: "TechCrunch Disrupt — 3 weeks ago" },
+                        { icon: FileText, label: "Context", value: "Bullish on AI memory tools. Asked to see early traction." },
+                        { icon: CalendarCheck, label: "Action", value: "Send Series A deck — Friday" },
                       ].map((f, i) => (
                         <div key={i} className="flex items-start gap-2.5 py-1.5">
                           <f.icon className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
                           <div className="min-w-0 flex-1">
                             <p className="text-[9px] font-medium text-muted-foreground uppercase tracking-wider">{f.label}</p>
-                            <p className="text-[11px] font-semibold text-foreground truncate">{f.value}</p>
+                            <p className="text-[11px] font-semibold text-foreground leading-snug">{f.value}</p>
                           </div>
                         </div>
                       ))}
+                    </div>
+
+                    {/* Status */}
+                    <div className="flex items-center gap-2 pt-1 border-t border-border/50">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="text-[10px] font-medium text-muted-foreground">Reminder set</span>
                     </div>
                   </div>
                 </div>
