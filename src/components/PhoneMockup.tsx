@@ -12,11 +12,12 @@ type Card = {
   tag: { label: string; className: string };
 };
 
-const cards: Card[] = [
+const cards: (Card & { shortRole: string })[] = [
   {
     initial: "S",
     name: "Sarah Chen",
     role: "Partner, Sequoia Capital",
+    shortRole: "Partner, Sequoia",
     metAt: "TechCrunch Disrupt — 3 weeks ago",
     context: "Bullish on AI memory. Wants to see traction before Series A.",
     action: "Send pitch deck — Friday",
@@ -26,6 +27,7 @@ const cards: Card[] = [
     initial: "M",
     name: "Marcus Webb",
     role: "Staff Engineer, ex-Stripe",
+    shortRole: "Staff Engineer",
     metAt: "AI conference afterparty — 1 week ago",
     context: "Open to early-stage roles. Wants equity-heavy package.",
     action: "Send role spec — Monday",
@@ -35,6 +37,7 @@ const cards: Card[] = [
     initial: "P",
     name: "Priya Sharma",
     role: "VP Product, Fortune 500",
+    shortRole: "VP Product",
     metAt: "LinkedIn intro from David — 5 days ago",
     context: "Their team has the exact pain we solve. Budget approved.",
     action: "Schedule demo — April 12",
@@ -44,6 +47,7 @@ const cards: Card[] = [
     initial: "J",
     name: "James Okonkwo",
     role: "Founder, exited 2x",
+    shortRole: "Founder & advisor",
     metAt: "Founder dinner in SF — 2 weeks ago",
     context: "Offered to advise. Wants quarterly check-ins.",
     action: "Send Q1 update — Friday",
@@ -53,11 +57,29 @@ const cards: Card[] = [
     initial: "A",
     name: "Anika Reddy",
     role: "Head of BD, Notion",
+    shortRole: "Head of BD, Notion",
     metAt: "SaaStr Annual — 4 weeks ago",
     context: "Interested in integration. Connecting us with their team.",
     action: "Intro email — Thursday",
     tag: { label: "🤝 Partnership", className: "bg-emerald-100 text-emerald-700" },
   },
+];
+
+// Rotation: 3 mini rows shown for each main-card index.
+// Index 0 (Sarah main) = initial state per spec: Marcus, Priya, James.
+// On each cycle, the previous main moves into row 1 as "Just added" and
+// the rest shift down by one.
+const MINI_ROTATIONS: { idx: number; subtext: string }[][] = [
+  // Main = Sarah (0)
+  [{ idx: 1, subtext: "Added yesterday" }, { idx: 2, subtext: "Added 3 days ago" }, { idx: 3, subtext: "Added 5 days ago" }],
+  // Main = Marcus (1) → Sarah just added, then Priya, James shift up
+  [{ idx: 0, subtext: "Just added" }, { idx: 2, subtext: "Added 3 days ago" }, { idx: 3, subtext: "Added 5 days ago" }],
+  // Main = Priya (2) → Marcus just added, Sarah ages
+  [{ idx: 1, subtext: "Just added" }, { idx: 0, subtext: "Added 2 days ago" }, { idx: 3, subtext: "Added 5 days ago" }],
+  // Main = James (3) → Priya just added
+  [{ idx: 2, subtext: "Just added" }, { idx: 1, subtext: "Added 2 days ago" }, { idx: 0, subtext: "Added 4 days ago" }],
+  // Main = Anika (4) → James just added
+  [{ idx: 3, subtext: "Just added" }, { idx: 2, subtext: "Added 2 days ago" }, { idx: 1, subtext: "Added 4 days ago" }],
 ];
 
 const PhoneMockup = () => {
@@ -100,6 +122,16 @@ const PhoneMockup = () => {
   }, []);
 
   const card = cards[index];
+  const miniRows = MINI_ROTATIONS[index].map((r) => {
+    const c = cards[r.idx];
+    return {
+      initial: c.initial,
+      name: c.name,
+      role: c.shortRole,
+      subtext: r.subtext,
+      tag: c.tag,
+    };
+  });
 
   return (
     <div className="relative w-full flex flex-col items-center">
