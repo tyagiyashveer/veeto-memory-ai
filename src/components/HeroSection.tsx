@@ -1,7 +1,33 @@
-import { ArrowDown } from "lucide-react";
-import heroVisual from "@/assets/hero-visual.jpg";
+import { useState } from "react";
+import { Loader2, CheckCircle2 } from "lucide-react";
+import phoneMockup from "@/assets/phone-mockup.png";
+import { submitWaitlist } from "@/lib/waitlist";
 
 const HeroSection = () => {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+    const result = await submitWaitlist({ email, source: "hero" });
+    setLoading(false);
+    if (result.ok) {
+      setSubmitted(true);
+      setEmail("");
+    } else {
+      setError(result.error ?? "Something went wrong");
+    }
+  };
+
+  const scrollToDemo = (e: React.MouseEvent) => {
+    e.preventDefault();
+    document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background gradient orbs */}
@@ -11,60 +37,83 @@ const HeroSection = () => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-veeto-blue/5 blur-[140px]" />
       </div>
 
-      <div className="veeto-section w-full pt-24">
+      <div className="veeto-section w-full pt-28">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left: Copy */}
-          <div className="space-y-8">
+          {/* Left: Copy + Form */}
+          <div className="space-y-7 order-1">
             <div className="animate-fade-up">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-card text-sm text-muted-foreground mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-card text-sm text-muted-foreground">
                 <span className="w-2 h-2 rounded-full veeto-gradient-bg animate-pulse" />
                 Your personal memory assistant
               </div>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] animate-fade-up-delay-1">
-              Never forget a<br />
-              <span className="veeto-gradient-text">person again.</span>
+            <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight leading-[1.08] animate-fade-up-delay-1">
+              Your network is your net worth.{" "}
+              <span className="veeto-gradient-text">Stop letting it slip away.</span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-lg leading-relaxed animate-fade-up-delay-2">
-              Veeto AI remembers every conversation—so you don't have to. Just speak, type, or snap. Veeto turns it into structured memory instantly.
+            <p className="text-lg text-muted-foreground max-w-xl leading-relaxed animate-fade-up-delay-2">
+              Veeto AI turns every conversation, meeting, and introduction into structured, searchable memory. Speak it once — remember it forever. Walk into every follow-up with full context.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 animate-fade-up-delay-3">
-              <a href="#waitlist" className="veeto-btn-primary">
-                Join the Waitlist
-              </a>
-              <a href="#demo" className="veeto-btn-secondary">
-                See how it works
-                <ArrowDown className="w-4 h-4 ml-2" />
+            <div id="hero-waitlist" className="animate-fade-up-delay-3 space-y-3 max-w-lg scroll-mt-24">
+              {submitted ? (
+                <div className="veeto-card flex items-center gap-3" style={{ boxShadow: "var(--veeto-glow)" }}>
+                  <CheckCircle2 className="w-6 h-6 text-primary shrink-0" />
+                  <div>
+                    <p className="font-semibold text-foreground">You're on the list!</p>
+                    <p className="text-sm text-muted-foreground">We'll be in touch soon.</p>
+                  </div>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 p-2 bg-card border border-border rounded-2xl shadow-lg" style={{ boxShadow: "var(--veeto-glow)" }}>
+                  <input
+                    id="hero-email-input"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    className="flex-1 px-4 py-3 bg-transparent text-foreground text-base placeholder:text-muted-foreground focus:outline-none"
+                    aria-label="Email address"
+                  />
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="veeto-btn-primary !px-6 !py-3 !text-sm whitespace-nowrap disabled:opacity-70"
+                  >
+                    {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Get early access"}
+                  </button>
+                </form>
+              )}
+              {error && <p className="text-sm text-destructive px-2">{error}</p>}
+
+              <p className="text-xs text-muted-foreground px-2">
+                🔒 End-to-end encrypted. You own your data. Delete anytime.
+              </p>
+
+              <a
+                href="#demo"
+                onClick={scrollToDemo}
+                className="inline-block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-2"
+              >
+                See how it works ↓
               </a>
             </div>
           </div>
 
-          {/* Right: Visual */}
-          <div className="relative animate-fade-up-delay-2">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl" style={{ boxShadow: "var(--veeto-glow)" }}>
+          {/* Right: Phone mockup */}
+          <div className="relative order-2 flex justify-center lg:justify-end animate-fade-up-delay-2">
+            <div className="relative w-full max-w-sm">
+              <div className="absolute inset-0 veeto-gradient-bg blur-3xl opacity-20 rounded-full" />
               <img
-                src={heroVisual}
-                alt="Veeto AI transforming voice notes into structured memory"
-                className="w-full h-auto"
-                width={1280}
-                height={896}
+                src={phoneMockup}
+                alt="Veeto AI memory card showing structured contact info for Ramesh Kumar"
+                className="relative w-full h-auto animate-float"
+                width={1024}
+                height={1280}
               />
-            </div>
-            {/* Floating card accent */}
-            <div className="absolute -bottom-4 -left-4 bg-card border border-border/50 rounded-xl p-3 shadow-lg animate-float hidden sm:block">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full veeto-gradient-bg flex items-center justify-center text-primary-foreground text-xs font-bold">R</div>
-                <div>
-                  <p className="text-xs font-semibold text-foreground">Ramesh — TCS</p>
-                  <p className="text-[10px] text-muted-foreground">Follow up next week</p>
-                </div>
-              </div>
-            </div>
-            <div className="absolute -top-4 -right-4 bg-card border border-border/50 rounded-xl px-3 py-2 shadow-lg animate-float-delayed hidden sm:block">
-              <p className="text-xs font-medium text-muted-foreground">Memory saved ✓</p>
             </div>
           </div>
         </div>

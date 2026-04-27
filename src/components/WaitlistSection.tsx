@@ -1,37 +1,54 @@
 import { useState } from "react";
-import { Brain, CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Loader2 } from "lucide-react";
+import { submitWaitlist } from "@/lib/waitlist";
+import SocialProof from "./SocialProof";
 
 const struggles = [
   "Forgetting people",
   "Missing follow-ups",
-  "Tracking conversations",
-  "Other",
+  "Losing context",
+  "Maintaining relationships",
 ];
 
 const WaitlistSection = () => {
   const [email, setEmail] = useState("");
   const [struggle, setStruggle] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) setSubmitted(true);
+    setError(null);
+    setLoading(true);
+    const result = await submitWaitlist({
+      email,
+      source: "footer_cta",
+      struggle: struggle || null,
+    });
+    setLoading(false);
+    if (result.ok) setSubmitted(true);
+    else setError(result.error ?? "Something went wrong");
   };
 
   return (
     <section id="waitlist" className="relative overflow-hidden">
-      {/* Background accents */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-veeto-purple/8 blur-[120px]" />
         <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-veeto-pink/6 blur-[100px]" />
       </div>
 
       <div className="veeto-section relative">
+        <SocialProof />
+
         <div className="max-w-lg mx-auto text-center space-y-8">
-          <div className="space-y-4">
+          <div className="space-y-3">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-              Be among the first to <span className="veeto-gradient-text">never forget again.</span>
+              Get early access <span className="veeto-gradient-text">before launch.</span>
             </h2>
+            <p className="text-base text-muted-foreground">
+              We're rolling out Veeto in waves. Join the waitlist to be first in line.
+            </p>
           </div>
 
           {submitted ? (
@@ -43,9 +60,9 @@ const WaitlistSection = () => {
           ) : (
             <form onSubmit={handleSubmit} className="veeto-card space-y-5 text-left" style={{ boxShadow: "var(--veeto-glow)" }}>
               <div>
-                <label htmlFor="email" className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
+                <label htmlFor="cta-email" className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
                 <input
-                  id="email"
+                  id="cta-email"
                   type="email"
                   required
                   value={email}
@@ -75,8 +92,10 @@ const WaitlistSection = () => {
                 </div>
               </div>
 
-              <button type="submit" className="veeto-btn-primary w-full justify-center">
-                Join the Waitlist
+              {error && <p className="text-sm text-destructive">{error}</p>}
+
+              <button type="submit" disabled={loading} className="veeto-btn-primary w-full justify-center disabled:opacity-70">
+                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Claim my spot"}
               </button>
             </form>
           )}

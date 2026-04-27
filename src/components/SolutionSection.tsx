@@ -5,19 +5,19 @@ const steps = [
     icon: Mic,
     step: "01",
     title: "Capture",
-    description: "Send a voice note, text, or image",
+    description: "Send a voice note, text, or photo right after the conversation.",
   },
   {
     icon: Sparkles,
     step: "02",
     title: "Understand",
-    description: "Veeto extracts who, what, and what matters",
+    description: "Veeto extracts the names, context, commitments, and what matters.",
   },
   {
     icon: Search,
     step: "03",
     title: "Remember",
-    description: "Everything is organized and searchable",
+    description: "Search anyone, anytime. Walk into every follow-up prepared.",
   },
 ];
 
@@ -34,7 +34,6 @@ const SolutionSection = () => {
         <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
           {steps.map((s, i) => (
             <div key={i} className="relative group text-center space-y-5">
-              {/* Connector line */}
               {i < steps.length - 1 && (
                 <div className="hidden md:block absolute top-10 left-[60%] w-[80%] h-px bg-border" />
               )}
