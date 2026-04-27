@@ -53,33 +53,6 @@ const conversation: QA[] = [
   },
 ];
 
-const features = [
-  {
-    icon: MapPin,
-    title: "Who should I meet in [city]?",
-    label: "Smart matching",
-    description: "Veeto cross-references your network with your travel plans and surfaces the right people to reconnect with — instantly.",
-  },
-  {
-    icon: Handshake,
-    title: "Who can refer me to [company]?",
-    label: "Warm intros on demand",
-    description: "Find the strongest paths into any company, role, or industry — drawn from people you've actually met.",
-  },
-  {
-    icon: Bell,
-    title: "Who needs follow-up?",
-    label: "Context-aware reminders",
-    description: "Veeto knows what you promised whom and surfaces overdue follow-ups before opportunities go cold.",
-  },
-  {
-    icon: BarChart3,
-    title: "Who in my network can help with [problem]?",
-    label: "Network insights",
-    description: "Ask anything — fundraising, hiring, partnerships, intros — and Veeto matches you to the right people in your memory.",
-  },
-];
-
 const TYPE_SPEED = 35;        // ms per character
 const SEARCHING_DELAY = 800;  // brief "searching" state after typing completes
 const HOLD_ANSWER = 4200;     // how long the answer stays visible
