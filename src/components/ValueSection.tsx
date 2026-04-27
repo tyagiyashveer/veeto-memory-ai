@@ -4,7 +4,17 @@ type Cell = "yes" | "no" | "manual" | "partial";
 
 const columns = ["Notes app", "CRM", "Your memory", "Veeto"] as const;
 
-const rows: { feature: string; values: [Cell, Cell, Cell, Cell] }[] = [
+const rows: { feature: string; values: [Cell, Cell, Cell, Cell]; veetoExtra?: React.ReactNode }[] = [
+  {
+    feature: "Works inside apps you already use",
+    values: ["no", "no", "partial", "yes"],
+    veetoExtra: (
+      <span className="inline-flex items-center gap-1 ml-1.5 align-middle">
+        <span className="w-4 h-4 rounded-sm bg-[#25D366] text-white text-[9px] font-bold inline-flex items-center justify-center">W</span>
+        <span className="w-4 h-4 rounded-sm bg-[#0088CC] text-white text-[9px] font-bold inline-flex items-center justify-center">T</span>
+      </span>
+    ),
+  },
   { feature: "Captures by voice", values: ["no", "no", "yes", "yes"] },
   { feature: "Auto-structures info", values: ["no", "manual", "no", "yes"] },
   { feature: "Searchable in seconds", values: ["partial", "yes", "no", "yes"] },
