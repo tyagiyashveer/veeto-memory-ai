@@ -15,6 +15,10 @@ const faqs = [
     a: "Yes. Everything is end-to-end encrypted. You own your memories. You can delete anything, anytime.",
   },
   {
+    q: "What can I ask Veeto?",
+    a: "Anything about your network. 'Who should I meet in NYC?' 'Who can intro me to a16z?' 'Who works in AI infrastructure?' 'Who said they'd advise me?' Veeto answers from your real conversations — not the public internet.",
+  },
+  {
     q: "How is this different from a notes app?",
     a: "Notes are passive. Veeto actively structures who you met, what mattered, and what to do next — and surfaces it when you need it.",
   },

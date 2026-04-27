@@ -11,6 +11,7 @@ const rows: { feature: string; values: [Cell, Cell, Cell, Cell] }[] = [
   { feature: "Reminds you to follow up", values: ["no", "yes", "no", "yes"] },
   { feature: "Zero typing required", values: ["no", "no", "yes", "yes"] },
   { feature: "Works for personal life too", values: ["partial", "no", "yes", "yes"] },
+  { feature: "Answers questions about your network", values: ["no", "no", "partial", "yes"] },
   { feature: "Grows more valuable over time", values: ["no", "partial", "no", "yes"] },
 ];
 
