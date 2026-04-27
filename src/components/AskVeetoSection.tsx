@@ -80,13 +80,16 @@ const features = [
   },
 ];
 
-const TYPE_SPEED = 35;       // ms per character
-const HOLD_AFTER_TYPE = 2400; // ms to hold full question + answer
-const ERASE_SPEED = 18;      // ms per character (faster erase)
+const TYPE_SPEED = 35;        // ms per character
+const SEARCHING_DELAY = 800;  // brief "searching" state after typing completes
+const HOLD_ANSWER = 4200;     // how long the answer stays visible
+const ERASE_SPEED = 18;       // ms per character (faster erase)
+
+type Phase = "typing" | "searching" | "answering" | "erasing";
 
 const useTypewriter = (index: number) => {
   const [typed, setTyped] = useState("");
-  const [phase, setPhase] = useState<"typing" | "holding" | "erasing">("typing");
+  const [phase, setPhase] = useState<Phase>("typing");
 
   useEffect(() => {
     setTyped("");
@@ -101,10 +104,12 @@ const useTypewriter = (index: number) => {
       if (typed.length < target.length) {
         timer = setTimeout(() => setTyped(target.slice(0, typed.length + 1)), TYPE_SPEED);
       } else {
-        timer = setTimeout(() => setPhase("holding"), HOLD_AFTER_TYPE);
+        timer = setTimeout(() => setPhase("searching"), 250);
       }
-    } else if (phase === "holding") {
-      timer = setTimeout(() => setPhase("erasing"), 0);
+    } else if (phase === "searching") {
+      timer = setTimeout(() => setPhase("answering"), SEARCHING_DELAY);
+    } else if (phase === "answering") {
+      timer = setTimeout(() => setPhase("erasing"), HOLD_ANSWER);
     } else if (phase === "erasing") {
       if (typed.length > 0) {
         timer = setTimeout(() => setTyped(typed.slice(0, -1)), ERASE_SPEED);
