@@ -442,11 +442,19 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
                     You're on the list <span aria-hidden>🎉</span>
                   </h2>
                   <p className="text-sm text-muted-foreground max-w-sm mx-auto">
-                    We'll reach out soon with early access. You're ahead of the curve.
+                    We'll reach out soon with early access.
                   </p>
                 </div>
 
                 <div className="pt-2 space-y-2">
+                  <a
+                    href="https://wa.me/"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="veeto-btn-primary w-full justify-center"
+                  >
+                    Join WhatsApp Updates
+                  </a>
                   <button
                     onClick={copyShare}
                     className="veeto-btn-secondary w-full justify-center"
