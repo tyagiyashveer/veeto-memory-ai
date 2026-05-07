@@ -40,7 +40,7 @@ const HeroSection = () => {
 
             <div id="hero-waitlist" className="animate-fade-up-delay-3 space-y-3 max-w-lg scroll-mt-24">
               <button
-                onClick={() => open()}
+                onClick={() => open("early_access")}
                 className="veeto-btn-primary !px-7 !py-3.5 !text-base"
               >
                 Get early access
