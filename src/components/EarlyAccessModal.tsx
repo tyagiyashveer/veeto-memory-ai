@@ -365,7 +365,7 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
                   </div>
                   <div>
                     <p className={labelCls}>What's your biggest challenge with managing relationships?</p>
-                    <ChoiceGrid
+                    <MultiChoiceGrid
                       options={CHALLENGE_OPTIONS}
                       value={data.biggest_challenge}
                       onChange={(v) => setData({ ...data, biggest_challenge: v })}
@@ -373,8 +373,8 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
                     />
                   </div>
                   <div>
-                    <p className={labelCls}>How do you currently manage contacts?</p>
-                    <ChoiceGrid
+                    <p className={labelCls}>How do you currently manage contacts? <span className="text-muted-foreground font-normal">(select all)</span></p>
+                    <MultiChoiceGrid
                       options={TOOL_OPTIONS}
                       value={data.current_tool}
                       onChange={(v) => setData({ ...data, current_tool: v })}
