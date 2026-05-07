@@ -313,7 +313,7 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
                     />
                   </div>
                   <div>
-                    <label className={labelCls} htmlFor="ea-linkedin">LinkedIn profile URL</label>
+                    <label className={labelCls} htmlFor="ea-linkedin">LinkedIn profile URL <span className="text-muted-foreground font-normal">(optional)</span></label>
                     <input
                       id="ea-linkedin" className={inputCls}
                       value={data.linkedin_url}
