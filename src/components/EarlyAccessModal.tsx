@@ -4,8 +4,12 @@ import { Loader2, CheckCircle2, ArrowLeft, Copy, Check } from "lucide-react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 
-type ModalCtx = { open: () => void };
+type CtaSource = "join_waitlist" | "early_access" | "whatsapp" | "claim_spot";
+type ModalCtx = { open: (source?: CtaSource) => void };
 const Ctx = createContext<ModalCtx | null>(null);
+
+const WEBHOOK_URL =
+  "https://script.google.com/macros/s/AKfycbzhBrpgHwOGJzYUOJ6gsdTxBhMOaQvESFTGBly8UYh8PzzPYawKdlRndqVxTBjo8sq5ig/exec";
 
 export const useEarlyAccessModal = () => {
   const c = useContext(Ctx);
@@ -93,6 +97,7 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [ctaSource, setCtaSource] = useState<CtaSource>("early_access");
 
   const [data, setData] = useState({
     full_name: "",
@@ -130,7 +135,13 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
     if (!v) setTimeout(reset, 200);
   };
 
-  const ctxValue: ModalCtx = { open: () => { reset(); setOpen(true); } };
+  const ctxValue: ModalCtx = {
+    open: (source: CtaSource = "early_access") => {
+      reset();
+      setCtaSource(source);
+      setOpen(true);
+    },
+  };
 
   const goStep1 = () => {
     setError(null);
@@ -157,28 +168,52 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
   };
 
   const submit = async () => {
+    if (loading) return;
     setError(null);
     setLoading(true);
-    const { error: insertError } = await supabase.from("waitlist_signups").insert({
+
+    const payload = {
+      name: data.full_name.trim(),
       email: data.email.trim(),
-      source: "modal",
-      struggle: data.biggest_challenge || null,
-      full_name: data.full_name.trim(),
-      linkedin_url: data.linkedin_url.trim(),
+      linkedin: data.linkedin_url.trim(),
       role: data.role,
-      people_per_month: data.people_per_month,
+      monthly_connections: data.people_per_month,
       biggest_challenge: data.biggest_challenge,
-      current_tool: data.current_tool,
-      wants_beta: data.wants_beta,
-      phone: data.phone.trim() || null,
-      referral_source: data.referral_source.trim() || null,
-    });
-    setLoading(false);
-    if (insertError) {
+      contact_management: data.current_tool,
+      early_access: data.wants_beta,
+      phone: data.phone.trim(),
+      source: data.referral_source.trim(),
+      cta_clicked: ctaSource,
+      timestamp: new Date().toISOString(),
+    };
+
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(payload),
+      });
+      // Best-effort backup to Lovable Cloud — non-blocking
+      supabase.from("waitlist_signups").insert({
+        email: payload.email,
+        source: "modal",
+        struggle: payload.biggest_challenge || null,
+        full_name: payload.name,
+        linkedin_url: payload.linkedin,
+        role: payload.role,
+        people_per_month: payload.monthly_connections,
+        biggest_challenge: payload.biggest_challenge,
+        current_tool: payload.contact_management,
+        wants_beta: payload.early_access,
+        phone: payload.phone || null,
+        referral_source: payload.source || null,
+      }).then(() => { /* noop */ });
+      setLoading(false);
+      setStep(4);
+    } catch {
+      setLoading(false);
       setError("Something went wrong. Please try again.");
-      return;
     }
-    setStep(4);
   };
 
   const copyShare = async () => {
@@ -367,20 +402,33 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
                   />
                 </div>
 
-                {error && <p className="text-sm text-destructive">{error}</p>}
+                {error && (
+                  <div className="space-y-2">
+                    <p className="text-sm text-destructive">{error}</p>
+                    <button
+                      onClick={submit}
+                      disabled={loading}
+                      className="veeto-btn-secondary w-full justify-center disabled:opacity-70"
+                    >
+                      Retry
+                    </button>
+                  </div>
+                )}
 
-                <div className="space-y-2">
-                  <button
-                    onClick={submit}
-                    disabled={loading}
-                    className="veeto-btn-primary w-full justify-center disabled:opacity-70"
-                  >
-                    {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Reserve my spot"}
-                  </button>
-                  <p className="text-xs text-center text-muted-foreground">
-                    Early users get priority access.
-                  </p>
-                </div>
+                {!error && (
+                  <div className="space-y-2">
+                    <button
+                      onClick={submit}
+                      disabled={loading}
+                      className="veeto-btn-primary w-full justify-center disabled:opacity-70"
+                    >
+                      {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Reserve my spot"}
+                    </button>
+                    <p className="text-xs text-center text-muted-foreground">
+                      Early users get priority access.
+                    </p>
+                  </div>
+                )}
               </div>
             )}
 
@@ -394,11 +442,19 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
                     You're on the list <span aria-hidden>🎉</span>
                   </h2>
                   <p className="text-sm text-muted-foreground max-w-sm mx-auto">
-                    We'll reach out soon with early access. You're ahead of the curve.
+                    We'll reach out soon with early access.
                   </p>
                 </div>
 
                 <div className="pt-2 space-y-2">
+                  <a
+                    href="https://wa.me/"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="veeto-btn-primary w-full justify-center"
+                  >
+                    Join WhatsApp Updates
+                  </a>
                   <button
                     onClick={copyShare}
                     className="veeto-btn-secondary w-full justify-center"

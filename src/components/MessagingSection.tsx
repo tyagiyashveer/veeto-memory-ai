@@ -289,7 +289,7 @@ const MessagingSection = () => {
 
         {/* CTA */}
         <div className="mt-10 flex flex-col items-center gap-2">
-          <button onClick={() => open()} className="veeto-btn-primary">
+          <button onClick={() => open("whatsapp")} className="veeto-btn-primary">
             Get the WhatsApp link →
           </button>
           <span className="font-handwritten text-veeto-coral text-xl mt-1 -rotate-2">
