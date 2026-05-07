@@ -228,8 +228,8 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
     <Ctx.Provider value={ctxValue}>
       {children}
       <Dialog open={open} onOpenChange={handleOpenChange}>
-        <DialogContent className="max-w-lg p-0 gap-0 rounded-2xl border border-border/60 bg-card overflow-hidden">
-          <div className="p-6 sm:p-8">
+        <DialogContent className="max-w-lg p-0 gap-0 rounded-2xl border border-border/60 bg-card overflow-hidden max-h-[90vh] flex flex-col">
+          <div className="p-6 sm:p-8 overflow-y-auto">
             {step !== 4 && (
               <div className="flex items-center justify-between mb-6">
                 <StepDots step={step as 1 | 2 | 3} />
