@@ -364,7 +364,7 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
                     />
                   </div>
                   <div>
-                    <p className={labelCls}>What's your biggest challenge with managing relationships?</p>
+                    <p className={labelCls}>What's your biggest challenge with managing relationships? <span className="text-muted-foreground font-normal">(select all)</span></p>
                     <MultiChoiceGrid
                       options={CHALLENGE_OPTIONS}
                       value={data.biggest_challenge}
