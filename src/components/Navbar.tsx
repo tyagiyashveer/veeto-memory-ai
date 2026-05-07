@@ -25,7 +25,7 @@ const Navbar = () => {
           </div>
           <span className="text-lg font-bold text-foreground tracking-tight">Veeto AI</span>
         </div>
-        <button onClick={() => open()} className="veeto-btn-primary !px-5 !py-2 !text-sm">
+        <button onClick={() => open("join_waitlist")} className="veeto-btn-primary !px-5 !py-2 !text-sm">
           Join Waitlist
         </button>
       </div>
