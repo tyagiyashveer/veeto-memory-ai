@@ -4,8 +4,12 @@ import { Loader2, CheckCircle2, ArrowLeft, Copy, Check } from "lucide-react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 
-type ModalCtx = { open: () => void };
+type CtaSource = "join_waitlist" | "early_access" | "whatsapp" | "claim_spot";
+type ModalCtx = { open: (source?: CtaSource) => void };
 const Ctx = createContext<ModalCtx | null>(null);
+
+const WEBHOOK_URL =
+  "https://script.google.com/macros/s/AKfycbzhBrpgHwOGJzYUOJ6gsdTxBhMOaQvESFTGBly8UYh8PzzPYawKdlRndqVxTBjo8sq5ig/exec";
 
 export const useEarlyAccessModal = () => {
   const c = useContext(Ctx);
