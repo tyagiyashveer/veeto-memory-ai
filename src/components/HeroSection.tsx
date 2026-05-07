@@ -1,27 +1,8 @@
-import { useState } from "react";
-import { Loader2, CheckCircle2 } from "lucide-react";
-import { submitWaitlist } from "@/lib/waitlist";
+import { useEarlyAccessModal } from "@/components/EarlyAccessModal";
 import PhoneMockup from "./PhoneMockup";
 
 const HeroSection = () => {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setLoading(true);
-    const result = await submitWaitlist({ email, source: "hero" });
-    setLoading(false);
-    if (result.ok) {
-      setSubmitted(true);
-      setEmail("");
-    } else {
-      setError(result.error ?? "Something went wrong");
-    }
-  };
+  const { open } = useEarlyAccessModal();
 
   const scrollToDemo = (e: React.MouseEvent) => {
     e.preventDefault();
