@@ -39,36 +39,12 @@ const HeroSection = () => {
             </p>
 
             <div id="hero-waitlist" className="animate-fade-up-delay-3 space-y-3 max-w-lg scroll-mt-24">
-              {submitted ? (
-                <div className="veeto-card flex items-center gap-3" style={{ boxShadow: "var(--veeto-glow)" }}>
-                  <CheckCircle2 className="w-6 h-6 text-primary shrink-0" />
-                  <div>
-                    <p className="font-semibold text-foreground">You're on the list!</p>
-                    <p className="text-sm text-muted-foreground">We'll be in touch soon.</p>
-                  </div>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 p-2 bg-card border border-border rounded-2xl shadow-lg" style={{ boxShadow: "var(--veeto-glow)" }}>
-                  <input
-                    id="hero-email-input"
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@example.com"
-                    className="flex-1 px-4 py-3 bg-transparent text-foreground text-base placeholder:text-muted-foreground focus:outline-none"
-                    aria-label="Email address"
-                  />
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="veeto-btn-primary !px-6 !py-3 !text-sm whitespace-nowrap disabled:opacity-70"
-                  >
-                    {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Get early access"}
-                  </button>
-                </form>
-              )}
-              {error && <p className="text-sm text-destructive px-2">{error}</p>}
+              <button
+                onClick={() => open()}
+                className="veeto-btn-primary !px-7 !py-3.5 !text-base"
+              >
+                Get early access
+              </button>
 
               <p className="text-xs text-muted-foreground px-2">
                 🔒 End-to-end encrypted. You own your data. Delete anytime.
