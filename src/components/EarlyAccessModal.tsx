@@ -447,14 +447,6 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
                 </div>
 
                 <div className="pt-2 space-y-2">
-                  <a
-                    href="https://wa.me/"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="veeto-btn-primary w-full justify-center"
-                  >
-                    Join WhatsApp Updates
-                  </a>
                   <button
                     onClick={copyShare}
                     className="veeto-btn-secondary w-full justify-center"
