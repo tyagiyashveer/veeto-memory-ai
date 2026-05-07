@@ -97,6 +97,7 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [ctaSource, setCtaSource] = useState<CtaSource>("early_access");
 
   const [data, setData] = useState({
     full_name: "",
@@ -134,7 +135,13 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
     if (!v) setTimeout(reset, 200);
   };
 
-  const ctxValue: ModalCtx = { open: () => { reset(); setOpen(true); } };
+  const ctxValue: ModalCtx = {
+    open: (source: CtaSource = "early_access") => {
+      reset();
+      setCtaSource(source);
+      setOpen(true);
+    },
+  };
 
   const goStep1 = () => {
     setError(null);
@@ -161,28 +168,52 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
   };
 
   const submit = async () => {
+    if (loading) return;
     setError(null);
     setLoading(true);
-    const { error: insertError } = await supabase.from("waitlist_signups").insert({
+
+    const payload = {
+      name: data.full_name.trim(),
       email: data.email.trim(),
-      source: "modal",
-      struggle: data.biggest_challenge || null,
-      full_name: data.full_name.trim(),
-      linkedin_url: data.linkedin_url.trim(),
+      linkedin: data.linkedin_url.trim(),
       role: data.role,
-      people_per_month: data.people_per_month,
+      monthly_connections: data.people_per_month,
       biggest_challenge: data.biggest_challenge,
-      current_tool: data.current_tool,
-      wants_beta: data.wants_beta,
-      phone: data.phone.trim() || null,
-      referral_source: data.referral_source.trim() || null,
-    });
-    setLoading(false);
-    if (insertError) {
+      contact_management: data.current_tool,
+      early_access: data.wants_beta,
+      phone: data.phone.trim(),
+      source: data.referral_source.trim(),
+      cta_clicked: ctaSource,
+      timestamp: new Date().toISOString(),
+    };
+
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(payload),
+      });
+      // Best-effort backup to Lovable Cloud — non-blocking
+      supabase.from("waitlist_signups").insert({
+        email: payload.email,
+        source: "modal",
+        struggle: payload.biggest_challenge || null,
+        full_name: payload.name,
+        linkedin_url: payload.linkedin,
+        role: payload.role,
+        people_per_month: payload.monthly_connections,
+        biggest_challenge: payload.biggest_challenge,
+        current_tool: payload.contact_management,
+        wants_beta: payload.early_access,
+        phone: payload.phone || null,
+        referral_source: payload.source || null,
+      }).then(() => { /* noop */ });
+      setLoading(false);
+      setStep(4);
+    } catch {
+      setLoading(false);
       setError("Something went wrong. Please try again.");
-      return;
     }
-    setStep(4);
   };
 
   const copyShare = async () => {
