@@ -402,20 +402,33 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
                   />
                 </div>
 
-                {error && <p className="text-sm text-destructive">{error}</p>}
+                {error && (
+                  <div className="space-y-2">
+                    <p className="text-sm text-destructive">{error}</p>
+                    <button
+                      onClick={submit}
+                      disabled={loading}
+                      className="veeto-btn-secondary w-full justify-center disabled:opacity-70"
+                    >
+                      Retry
+                    </button>
+                  </div>
+                )}
 
-                <div className="space-y-2">
-                  <button
-                    onClick={submit}
-                    disabled={loading}
-                    className="veeto-btn-primary w-full justify-center disabled:opacity-70"
-                  >
-                    {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Reserve my spot"}
-                  </button>
-                  <p className="text-xs text-center text-muted-foreground">
-                    Early users get priority access.
-                  </p>
-                </div>
+                {!error && (
+                  <div className="space-y-2">
+                    <button
+                      onClick={submit}
+                      disabled={loading}
+                      className="veeto-btn-primary w-full justify-center disabled:opacity-70"
+                    >
+                      {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Reserve my spot"}
+                    </button>
+                    <p className="text-xs text-center text-muted-foreground">
+                      Early users get priority access.
+                    </p>
+                  </div>
+                )}
               </div>
             )}
 
