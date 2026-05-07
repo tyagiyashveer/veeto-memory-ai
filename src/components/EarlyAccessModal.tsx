@@ -160,7 +160,7 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
     setCopied(false);
     setData({
       full_name: "", email: "", linkedin_url: "", role: "",
-      people_per_month: "", biggest_challenge: "", current_tool: "",
+      people_per_month: "", biggest_challenge: [], current_tool: [],
       wants_beta: true, phone: "", referral_source: "",
     });
   };
