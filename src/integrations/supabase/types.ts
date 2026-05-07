@@ -16,25 +16,52 @@ export type Database = {
     Tables: {
       waitlist_signups: {
         Row: {
+          biggest_challenge: string | null
           created_at: string
+          current_tool: string | null
           email: string
+          full_name: string | null
           id: string
+          linkedin_url: string | null
+          people_per_month: string | null
+          phone: string | null
+          referral_source: string | null
+          role: string | null
           source: string
           struggle: string | null
+          wants_beta: boolean | null
         }
         Insert: {
+          biggest_challenge?: string | null
           created_at?: string
+          current_tool?: string | null
           email: string
+          full_name?: string | null
           id?: string
+          linkedin_url?: string | null
+          people_per_month?: string | null
+          phone?: string | null
+          referral_source?: string | null
+          role?: string | null
           source?: string
           struggle?: string | null
+          wants_beta?: boolean | null
         }
         Update: {
+          biggest_challenge?: string | null
           created_at?: string
+          current_tool?: string | null
           email?: string
+          full_name?: string | null
           id?: string
+          linkedin_url?: string | null
+          people_per_month?: string | null
+          phone?: string | null
+          referral_source?: string | null
+          role?: string | null
           source?: string
           struggle?: string | null
+          wants_beta?: boolean | null
         }
         Relationships: []
       }

@@ -1,14 +1,6 @@
 import { Mic, Check, CheckCheck, Smile, Paperclip, Camera, Send, Sparkles, Image as ImageIcon } from "lucide-react";
+import { useEarlyAccessModal } from "@/components/EarlyAccessModal";
 
-const scrollToHero = (e: React.MouseEvent) => {
-  e.preventDefault();
-  const section = document.getElementById("hero-waitlist");
-  section?.scrollIntoView({ behavior: "smooth", block: "center" });
-  setTimeout(() => {
-    const input = document.getElementById("hero-email-input") as HTMLInputElement | null;
-    input?.focus({ preventScroll: true });
-  }, 600);
-};
 
 /* ---------- WhatsApp Mockup ---------- */
 const WhatsAppMockup = () => (
@@ -244,6 +236,7 @@ const TelegramMockup = () => (
 );
 
 const MessagingSection = () => {
+  const { open } = useEarlyAccessModal();
   return (
     <section className="relative band-beige overflow-hidden">
       <div className="grain" />
@@ -296,9 +289,9 @@ const MessagingSection = () => {
 
         {/* CTA */}
         <div className="mt-10 flex flex-col items-center gap-2">
-          <a href="#hero-waitlist" onClick={scrollToHero} className="veeto-btn-primary">
+          <button onClick={() => open()} className="veeto-btn-primary">
             Get the WhatsApp link →
-          </a>
+          </button>
           <span className="font-handwritten text-veeto-coral text-xl mt-1 -rotate-2">
             * we'll send it the moment we launch
           </span>
