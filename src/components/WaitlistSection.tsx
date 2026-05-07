@@ -39,7 +39,7 @@ const WaitlistSection = () => {
           </div>
 
           <button
-            onClick={() => open()}
+            onClick={() => open("claim_spot")}
             className="veeto-btn-primary !px-8 !py-4 !text-base"
             style={{ boxShadow: "var(--veeto-glow)" }}
           >
