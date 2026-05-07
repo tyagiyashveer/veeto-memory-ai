@@ -195,7 +195,7 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
 
   const goStep2 = () => {
     setError(null);
-    if (!data.people_per_month || !data.biggest_challenge || !data.current_tool) {
+    if (!data.people_per_month || data.biggest_challenge.length === 0 || data.current_tool.length === 0) {
       setError("Please answer all questions");
       return;
     }
