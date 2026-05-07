@@ -38,7 +38,12 @@ const TOOL_OPTIONS = [
 const step1Schema = z.object({
   full_name: z.string().trim().min(1, "Please enter your name").max(120),
   email: z.string().trim().email("Enter a valid email").max(255),
-  linkedin_url: z.string().trim().url("Enter a valid URL").max(300),
+  linkedin_url: z
+    .string()
+    .trim()
+    .max(300)
+    .optional()
+    .refine((v) => !v || /^https?:\/\/.+/.test(v), "Enter a valid URL"),
   role: z.string().min(1, "Select an option"),
 });
 
