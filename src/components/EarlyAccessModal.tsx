@@ -38,7 +38,12 @@ const TOOL_OPTIONS = [
 const step1Schema = z.object({
   full_name: z.string().trim().min(1, "Please enter your name").max(120),
   email: z.string().trim().email("Enter a valid email").max(255),
-  linkedin_url: z.string().trim().url("Enter a valid URL").max(300),
+  linkedin_url: z
+    .string()
+    .trim()
+    .max(300)
+    .optional()
+    .refine((v) => !v || /^https?:\/\/.+/.test(v), "Enter a valid URL"),
   role: z.string().min(1, "Select an option"),
 });
 
@@ -61,6 +66,36 @@ function ChoiceGrid({
             key={o}
             type="button"
             onClick={() => onChange(o)}
+            className={`text-left px-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all duration-200 ${
+              active
+                ? "border-primary bg-accent text-accent-foreground"
+                : "border-border bg-background text-muted-foreground hover:border-primary/30 hover:text-foreground"
+            }`}
+          >
+            {o}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function MultiChoiceGrid({
+  options, value, onChange, cols = 2,
+}: { options: string[]; value: string[]; onChange: (v: string[]) => void; cols?: 1 | 2 }) {
+  const toggle = (o: string) => {
+    if (value.includes(o)) onChange(value.filter((v) => v !== o));
+    else onChange([...value, o]);
+  };
+  return (
+    <div className={`grid gap-2 ${cols === 1 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`}>
+      {options.map((o) => {
+        const active = value.includes(o);
+        return (
+          <button
+            key={o}
+            type="button"
+            onClick={() => toggle(o)}
             className={`text-left px-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all duration-200 ${
               active
                 ? "border-primary bg-accent text-accent-foreground"
@@ -105,8 +140,8 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
     linkedin_url: "",
     role: "",
     people_per_month: "",
-    biggest_challenge: "",
-    current_tool: "",
+    biggest_challenge: [] as string[],
+    current_tool: [] as string[],
     wants_beta: true,
     phone: "",
     referral_source: "",
@@ -125,7 +160,7 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
     setCopied(false);
     setData({
       full_name: "", email: "", linkedin_url: "", role: "",
-      people_per_month: "", biggest_challenge: "", current_tool: "",
+      people_per_month: "", biggest_challenge: [], current_tool: [],
       wants_beta: true, phone: "", referral_source: "",
     });
   };
@@ -160,7 +195,7 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
 
   const goStep2 = () => {
     setError(null);
-    if (!data.people_per_month || !data.biggest_challenge || !data.current_tool) {
+    if (!data.people_per_month || data.biggest_challenge.length === 0 || data.current_tool.length === 0) {
       setError("Please answer all questions");
       return;
     }
@@ -178,8 +213,8 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
       linkedin: data.linkedin_url.trim(),
       role: data.role,
       monthly_connections: data.people_per_month,
-      biggest_challenge: data.biggest_challenge,
-      contact_management: data.current_tool,
+      biggest_challenge: data.biggest_challenge.join(", "),
+      contact_management: data.current_tool.join(", "),
       early_access: data.wants_beta,
       phone: data.phone.trim(),
       source: data.referral_source.trim(),
@@ -278,7 +313,7 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
                     />
                   </div>
                   <div>
-                    <label className={labelCls} htmlFor="ea-linkedin">LinkedIn profile URL</label>
+                    <label className={labelCls} htmlFor="ea-linkedin">LinkedIn profile URL <span className="text-muted-foreground font-normal">(optional)</span></label>
                     <input
                       id="ea-linkedin" className={inputCls}
                       value={data.linkedin_url}
@@ -329,8 +364,8 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
                     />
                   </div>
                   <div>
-                    <p className={labelCls}>What's your biggest challenge with managing relationships?</p>
-                    <ChoiceGrid
+                    <p className={labelCls}>What's your biggest challenge with managing relationships? <span className="text-muted-foreground font-normal">(select all)</span></p>
+                    <MultiChoiceGrid
                       options={CHALLENGE_OPTIONS}
                       value={data.biggest_challenge}
                       onChange={(v) => setData({ ...data, biggest_challenge: v })}
@@ -338,8 +373,8 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
                     />
                   </div>
                   <div>
-                    <p className={labelCls}>How do you currently manage contacts?</p>
-                    <ChoiceGrid
+                    <p className={labelCls}>How do you currently manage contacts? <span className="text-muted-foreground font-normal">(select all)</span></p>
+                    <MultiChoiceGrid
                       options={TOOL_OPTIONS}
                       value={data.current_tool}
                       onChange={(v) => setData({ ...data, current_tool: v })}
