@@ -80,6 +80,36 @@ function ChoiceGrid({
   );
 }
 
+function MultiChoiceGrid({
+  options, value, onChange, cols = 2,
+}: { options: string[]; value: string[]; onChange: (v: string[]) => void; cols?: 1 | 2 }) {
+  const toggle = (o: string) => {
+    if (value.includes(o)) onChange(value.filter((v) => v !== o));
+    else onChange([...value, o]);
+  };
+  return (
+    <div className={`grid gap-2 ${cols === 1 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`}>
+      {options.map((o) => {
+        const active = value.includes(o);
+        return (
+          <button
+            key={o}
+            type="button"
+            onClick={() => toggle(o)}
+            className={`text-left px-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all duration-200 ${
+              active
+                ? "border-primary bg-accent text-accent-foreground"
+                : "border-border bg-background text-muted-foreground hover:border-primary/30 hover:text-foreground"
+            }`}
+          >
+            {o}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 function StepDots({ step }: { step: 1 | 2 | 3 }) {
   return (
     <div className="flex items-center gap-2">
