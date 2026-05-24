@@ -244,6 +244,9 @@ export function EarlyAccessModalProvider({ children }: { children: ReactNode }) 
         referral_source: payload.source || null,
       }).then(() => { /* noop */ });
       setLoading(false);
+      if (typeof window !== 'undefined' && (window as any).gtag_report_conversion) {
+        (window as any).gtag_report_conversion();
+      }
       setStep(4);
     } catch {
       setLoading(false);
