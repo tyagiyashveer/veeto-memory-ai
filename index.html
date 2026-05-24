@@ -10,6 +10,24 @@
             })(window,document,'script','dataLayer','GTM-NJP5CP95');
     </script>
     <!-- End Google Tag Manager -->
+
+    <!-- Event snippet for Submit lead form (1) conversion page -->
+    <script>
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+            'send_to': 'AW-18138392017/HPoCCNqwubIcENHLh8lD',
+            'value': 1.0,
+            'currency': 'INR',
+            'event_callback': callback
+        });
+        return false;
+      }
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- TODO: Set the document title to the name of your application -->
