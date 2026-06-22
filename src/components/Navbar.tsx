@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Brain } from "lucide-react";
 import { useEarlyAccessModal } from "@/components/EarlyAccessModal";
+import veetoLogo from "@/assets/veeto-logo.svg.asset.json";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
