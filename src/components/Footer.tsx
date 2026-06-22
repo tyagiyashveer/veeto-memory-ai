@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import veetoLogo from "@/assets/veeto-logo.svg.asset.json";
 
 const Footer = () => (
@@ -7,7 +8,10 @@ const Footer = () => (
         <img src={veetoLogo.url} alt="Veeto AI logo" className="w-6 h-6 rounded-md object-cover" />
         <span className="text-sm font-semibold text-foreground">Veeto AI</span>
       </div>
-      <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Veeto AI. All rights reserved.</p>
+      <div className="flex items-center gap-4 text-xs text-muted-foreground">
+        <Link to="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+        <span>© {new Date().getFullYear()} Veeto AI. All rights reserved.</span>
+      </div>
     </div>
   </footer>
 );
