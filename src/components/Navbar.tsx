@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useEarlyAccessModal } from "@/components/EarlyAccessModal";
-import veetoLogo from "@/assets/veeto-logo.svg.asset.json";
+import veetoLogo from "@/assets/veeto-logo.svg";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -20,7 +20,7 @@ const Navbar = () => {
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
         <div className="flex items-center gap-2">
-          <img src={veetoLogo.url} alt="Veeto AI logo" className="w-8 h-8 rounded-lg object-cover" />
+          <img src={veetoLogo} alt="Veeto AI logo" className="w-8 h-8 rounded-lg object-cover" />
           <span className="text-lg font-bold text-foreground tracking-tight">Veeto AI</span>
         </div>
         <button onClick={() => open("join_waitlist")} className="veeto-btn-primary !px-5 !py-2 !text-sm">
