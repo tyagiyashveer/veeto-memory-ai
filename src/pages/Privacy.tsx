@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import veetoLogo from "@/assets/veeto-logo.svg.asset.json";
+import veetoLogo from "@/assets/veeto-logo.svg";
 import Footer from "@/components/Footer";
 
 const Privacy = () => {
@@ -8,7 +8,7 @@ const Privacy = () => {
       <header className="border-b border-border/50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <img src={veetoLogo.url} alt="Veeto AI logo" className="w-7 h-7 rounded-md object-cover" />
+            <img src={veetoLogo} alt="Veeto AI logo" className="w-7 h-7 rounded-md object-cover" />
             <span className="text-base font-semibold text-foreground">Veeto AI</span>
           </Link>
           <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">← Back to home</Link>
